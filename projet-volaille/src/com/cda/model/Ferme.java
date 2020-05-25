@@ -10,6 +10,7 @@ import com.cda.model.abat.Poulet;
 import com.cda.model.abat.VolailleAbattable;
 import com.cda.model.nabat.Cygne;
 import com.cda.model.nabat.Paon;
+import com.cda.model.nabat.VolailleAGarder;
 
 public final class Ferme {
 	public static final Ferme LA_FERME = new Ferme();
@@ -148,5 +149,27 @@ public final class Ferme {
 			}
 		}
 		return vVolailleAVendre;
+	}
+	
+	public VolailleAGarder rendreVolaille(int vTypeVolaille, String vIdVolailleAGarder) {
+		VolailleAGarder vVolailleAGarder = null;
+		if (this.volaillesMap.containsKey(vIdVolailleAGarder)) {
+			Volaille vVolailleARendreTmp = this.volaillesMap.get(vIdVolailleAGarder);
+			if (vVolailleARendreTmp instanceof VolailleAGarder) {
+				boolean vSuppressionReussie = false;
+				if (vTypeVolaille == 0 && this.paons.contains(vVolailleARendreTmp)) {
+					vSuppressionReussie = this.paons.remove(vVolailleARendreTmp);
+
+				} else if (vTypeVolaille == 1 && this.cygnes.contains(vVolailleARendreTmp)) {
+					vSuppressionReussie = this.cygnes.remove(vVolailleARendreTmp);
+				}
+				if (vSuppressionReussie) {
+					this.volaillesMap.remove(vIdVolailleAGarder);
+					this.volaillesSet.remove(vVolailleARendreTmp);
+					vVolailleAGarder = (VolailleAGarder) vVolailleARendreTmp;
+				}
+			}
+		}
+		return vVolailleAGarder;
 	}
 }
