@@ -11,8 +11,8 @@ public class VolailleComparator implements Comparator<Volaille> {
 	public int compare(Volaille pVolailleA, Volaille pVolailleB) {
 		if (pVolailleA instanceof VolailleAbattable) {
 			if (pVolailleB instanceof VolailleAbattable) {
-				int vResultat = Float.compare(((VolailleAbattable) pVolailleA).getPoids(),
-						((VolailleAbattable) pVolailleB).getPoids());
+				int vResultat = Float.compare(((VolailleAbattable) pVolailleB).getPoids(),
+						((VolailleAbattable) pVolailleA).getPoids());
 				if (vResultat == 0) {
 					vResultat = pVolailleA.id.compareTo(pVolailleB.id);
 				}

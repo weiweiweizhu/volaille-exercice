@@ -71,10 +71,13 @@ public final class Ferme {
 		} else if (!pEstAbattable && pTypeVolaille == 0) {
 			return new TreeSet<Volaille>(this.paons);
 
+		}else if (!pEstAbattable && pTypeVolaille == 1) {
+			return new TreeSet<Volaille>(this.cygnes);
+
 		}
 		return new TreeSet<>();
 	}
-
+	
 	public int getNbVolailles() {
 		return this.volaillesSet.size();
 	}
