@@ -8,6 +8,7 @@ import java.util.TreeSet;
 import com.cda.model.abat.Canard;
 import com.cda.model.abat.Poulet;
 import com.cda.model.abat.VolailleAbattable;
+import com.cda.model.nabat.Cygne;
 import com.cda.model.nabat.Paon;
 
 public final class Ferme {
@@ -20,6 +21,7 @@ public final class Ferme {
 	private final Set<Canard> canards;
 	private final Set<Poulet> poulets;
 	private final Set<Paon> paons;
+	private final Set<Cygne> cygnes;
 
 	private Ferme() {
 		this.volaillesMap = new HashMap<>();
@@ -27,6 +29,7 @@ public final class Ferme {
 		this.canards = new TreeSet<>();
 		this.poulets = new TreeSet<>();
 		this.paons = new TreeSet<>();
+		this.cygnes = new TreeSet<>();
 	}
 
 	private void ajouterVolaille(Volaille pVolaille) {
@@ -47,6 +50,11 @@ public final class Ferme {
 	private void ajouterPaon(Paon pPaon) {
 		this.paons.add(pPaon);
 		this.ajouterVolaille(pPaon);
+	}
+
+	private void ajouterCygne(Cygne pCygne) {
+		this.cygnes.add(pCygne);
+		this.ajouterVolaille(pCygne);
 	}
 
 	public Set<Volaille> getVolailles() {
@@ -80,11 +88,12 @@ public final class Ferme {
 
 		} else if (!pEstAbattables && vTypeVolaille == 0 && paons.size() != Paon.NB_MAX) {
 			return true;
+		} else if (!pEstAbattables && vTypeVolaille == 1 && cygnes.size() != Cygne.NB_MAX) {
+			return true;
 		}
-
 		return false;
 	}
-	
+
 	public Volaille ajouterVolailleAbattable(int vTypeVolaille, float pPoids) {
 		VolailleAbattable vNouvelleVolaille = null;
 		if (vTypeVolaille == 0 && canards.size() != Canard.NB_MAX) {
@@ -101,12 +110,16 @@ public final class Ferme {
 
 		return vNouvelleVolaille;
 	}
-	
+
 	public Volaille ajouterVolailleAGarder(int vTypeVolaille) {
 		Volaille vNouvelleVolaille = null;
 		if (vTypeVolaille == 0 && paons.size() != Paon.NB_MAX) {
 			vNouvelleVolaille = new Paon();
 			LA_FERME.ajouterPaon((Paon) vNouvelleVolaille);
+		}
+		if (vTypeVolaille == 1 && cygnes.size() != Cygne.NB_MAX) {
+			vNouvelleVolaille = new Cygne();
+			LA_FERME.ajouterCygne((Cygne) vNouvelleVolaille);
 		}
 
 		return vNouvelleVolaille;
@@ -124,10 +137,10 @@ public final class Ferme {
 				} else if (vTypeVolaille == 1 && this.poulets.contains(vVolailleAVendreTmp)) {
 					vSuppressionReussie = this.poulets.remove(vVolailleAVendreTmp);
 				}
-				if(vSuppressionReussie) {
+				if (vSuppressionReussie) {
 					this.volaillesMap.remove(vIdVolailleAVendre);
 					this.volaillesSet.remove(vVolailleAVendreTmp);
-					vVolailleAVendre = (VolailleAbattable)vVolailleAVendreTmp;
+					vVolailleAVendre = (VolailleAbattable) vVolailleAVendreTmp;
 				}
 			}
 		}

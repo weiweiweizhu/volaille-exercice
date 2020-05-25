@@ -9,12 +9,11 @@ public class VolailleComparator implements Comparator<Volaille> {
 
 	@Override
 	public int compare(Volaille pVolailleA, Volaille pVolailleB) {
-		if(pVolailleA instanceof VolailleAbattable) {
-			if(pVolailleB instanceof VolailleAbattable) {
-				int vResultat = Float.compare(
-						((VolailleAbattable) pVolailleA).getPoids(),
+		if (pVolailleA instanceof VolailleAbattable) {
+			if (pVolailleB instanceof VolailleAbattable) {
+				int vResultat = Float.compare(((VolailleAbattable) pVolailleA).getPoids(),
 						((VolailleAbattable) pVolailleB).getPoids());
-				if(vResultat == 0) {
+				if (vResultat == 0) {
 					vResultat = pVolailleA.id.compareTo(pVolailleB.id);
 				}
 				return vResultat;
@@ -22,17 +21,17 @@ public class VolailleComparator implements Comparator<Volaille> {
 				return 1;
 			}
 		} else {
-			if(pVolailleB instanceof VolailleAbattable) {
+			if (pVolailleB instanceof VolailleAbattable) {
 				return -1;
 			} else {
-				int vResultat = ((VolailleAGarder)pVolailleA).getDateDAccueil()
-						.compareTo(((VolailleAGarder)pVolailleB).getDateDAccueil());
-				if(vResultat == 0) {
+				int vResultat = ((VolailleAGarder) pVolailleA).getDateDAccueil()
+						.compareTo(((VolailleAGarder) pVolailleB).getDateDAccueil());
+				if (vResultat == 0) {
 					vResultat = pVolailleA.id.compareTo(pVolailleB.id);
 				}
+				return vResultat;
 			}
 		}
-		return compare(pVolailleB,pVolailleA);
 	}
 
 }
