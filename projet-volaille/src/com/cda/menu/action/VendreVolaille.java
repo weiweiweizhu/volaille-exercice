@@ -6,6 +6,7 @@ import static com.cda.tools.Ihm.IHM_INS;
 import java.util.Set;
 
 import com.cda.model.Volaille;
+import com.cda.model.abat.Poulet;
 import com.cda.model.abat.VolailleAbattable;
 
 final class VendreVolaille extends Action {
@@ -25,7 +26,7 @@ final class VendreVolaille extends Action {
 		
 		int vTypeVolaille = IHM_INS.lireEntier();
 		
-		IHM_INS.afficher("saisissez l'id de la volaille à vendre parmis :");
+		IHM_INS.afficher("saisissez l'id de la volaille ï¿½ vendre parmis :");
 		Set<Volaille> vVolailles = LA_FERME.getVolailles(true,vTypeVolaille);
 		for (Volaille vVolaille : vVolailles) {
 			IHM_INS.afficher(vVolaille.toString());
@@ -35,8 +36,10 @@ final class VendreVolaille extends Action {
 		VolailleAbattable vVolailleVendue = LA_FERME.vendreVolaille(vTypeVolaille,vIdVolailleAVendre);
 		if(vVolailleVendue == null) {
 			IHM_INS.afficher("> erreur lors de la vente");
+		} else if (vVolailleVendue.getPoids() >= Poulet.getPoidsDAbattage()) {
+			IHM_INS.afficher("> voici la volaille vendue " + vVolailleVendue);
 		} else {
-			IHM_INS.afficher("> voici la volaille vendue "+vVolailleVendue);
+			System.out.println("> le poulet est trop petit pour vendre");
 		}
 		
 		return Boolean.TRUE;
