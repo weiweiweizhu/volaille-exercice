@@ -51,7 +51,9 @@ public class Ihm {
 	
 	public float lireFloat() {
 		System.out.print("< ");
-		float saisie = this.scanner.nextFloat();
+		String str = this.scanner.next();
+		str = str.replace(',', '.');
+		float saisie = Float.parseFloat(str);
 		if(!interactif) {
 			System.out.print(saisie);
 		}
